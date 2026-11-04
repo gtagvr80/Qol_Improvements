@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
     <!-- Change this to your game's folder -->
-    <GameDir>C:\Users\krumb\OneDrive\Desktop\Slendytubbies 3 Multiplayer (x64) (1)\Slendytubbies 3 Multiplayer (x64)</GameDir>
+    <GameDir>C:Your/Path/To/Slendytubbies3</GameDir>
     <MLDir>$(GameDir)\MelonLoader</MLDir>
   </PropertyGroup>
 
