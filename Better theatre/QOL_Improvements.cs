@@ -1,4 +1,4 @@
-﻿#region Usings
+#region Usings
 using UnityEngine;
 using MelonLoader;
 using Il2CppInterop.Runtime.Injection;
@@ -57,30 +57,25 @@ namespace QOL_Improvements
         #endregion
     }
 
-    [HarmonyPatch(typeof(FlyCamController), nameof(FlyCamController.Awake))]
-    public class FlyCamPatch
+    [HarmonyPatch(typeof(Flashlight), nameof(Flashlight.Start))]
+    public class FlashlightPatch
     {
-        static void Postfix(FlyCamController __instance)
+        static void Postfix(Flashlight __instance)
         {
-            var obj = __instance.gameObject;
-            MelonLogger.Msg($"[FlyCamPatch] Awake on '{obj.name}' | hasFlyCam: {obj.TryGetComponent<FlyCamController>(out _)} | hasCamera: {obj.TryGetComponent<Camera>(out _)}");
-
-            if (!obj.TryGetComponent<FlyCamController>(out _))
-                return;
-
-            if (!obj.TryGetComponent<BetterFlyCam>(out _))
-                obj.AddComponent<BetterFlyCam>();
+            // For adding our betterflycam component (in here cuz in FlyCamController it just goes to __Room)
+            if (__instance.gameObject.TryGetComponent<FlyCamController>(out _) && !__instance.gameObject.TryGetComponent<BetterFlyCam>(out _))
+                    __instance.gameObject.AddComponent<BetterFlyCam>();
         }
     }
 
-    [HarmonyPatch(typeof(LobbyMenu), "Start")]
+    [HarmonyPatch(typeof(LobbyMenu), nameof(LobbyMenu.Start))]
     public class LobbyMenuPatch
     {
         static void Postfix(LobbyMenu __instance) => Mod.menu = __instance;
     }
 
     // fpsmouselook patch made by ai (sorry)
-    [HarmonyPatch(typeof(FPSMouseLook), "Update")]
+    [HarmonyPatch(typeof(FPSMouseLook), nameof(FPSMouseLook.Update))]
     public static class FPSMouseLookPatch
     {
         #region Variables
